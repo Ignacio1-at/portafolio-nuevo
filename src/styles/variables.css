@@ -1,0 +1,118 @@
+:root {
+  /* Paleta principal limpia y moderna */
+  --color-primary: #007AFF;
+  --color-secondary: #5856D6;
+  --color-success: #34C759;
+  --color-warning: #FF9500;
+  --color-danger: #FF3B30;
+  
+  /* Colores de texto bien contrastados */
+  --color-text-primary: #1D1D1F;
+  --color-text-secondary: #6B6B70;
+  --color-text-tertiary: #8E8E93;
+  --color-text-light: #FFFFFF;
+  
+  /* Fondos limpios y consistentes */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-tertiary: #F2F2F7;
+  --color-bg-card: #FFFFFF;
+  --color-bg-section: #FDFDFD;
+  
+  /* Gradientes suaves */
+  --gradient-primary: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
+  --gradient-secondary: linear-gradient(135deg, #5856D6 0%, #4338CA 100%);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-section: linear-gradient(to bottom, #FFFFFF 0%, #F8F9FA 100%);
+  
+  /* Bordes y divisores */
+  --color-border-light: #E5E5EA;
+  --color-border-medium: #D1D1D6;
+  --color-border-primary: rgba(0, 122, 255, 0.12);
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  
+  /* Typography */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 17px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  --font-size-4xl: 40px;
+  --font-size-5xl: 48px;
+  
+  /* Border radius */
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+  --border-radius-xl: 18px;
+  --border-radius-2xl: 22px;
+  --border-radius-full: 50%;
+  
+  /* Sombras suaves y modernas */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.12);
+  
+  /* Transiciones */
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1040;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.seccion {
+  padding: var(--spacing-3xl) 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .seccion {
+    padding: var(--spacing-2xl) 0;
+    min-height: auto;
+  }
+}
