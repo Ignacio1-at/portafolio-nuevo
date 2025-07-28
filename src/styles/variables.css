@@ -12,12 +12,18 @@
   --color-text-tertiary: #8E8E93;
   --color-text-light: #FFFFFF;
   
-  /* Fondos limpios y consistentes */
+  /* Fondos limpios y consistentes - MEJORADOS */
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #F8F9FA;
   --color-bg-tertiary: #F2F2F7;
   --color-bg-card: #FFFFFF;
   --color-bg-section: #FDFDFD;
+
+  /* NUEVAS VARIABLES para mejor contraste */
+  --color-bg-skills: #F8F9FA;           /* Fondo de la sección Skills */
+  --color-card-elevated: #FFFFFF;       /* Cards principales */
+  --color-card-nested: #F8F9FA;         /* Cards secundarias/anidadas */
+  --color-glass-bg: rgba(255, 255, 255, 0.85);  /* Glassmorphism mejorado */
   
   /* Gradientes suaves */
   --gradient-primary: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
@@ -29,6 +35,13 @@
   --color-border-light: #E5E5EA;
   --color-border-medium: #D1D1D6;
   --color-border-primary: rgba(0, 122, 255, 0.12);
+
+  /* Agregado */
+--color-glass-light: rgba(255, 255, 255, 0.1);
+--color-glass-medium: rgba(255, 255, 255, 0.9);
+--color-glass-border: rgba(255, 255, 255, 0.2);
+--color-tooltip-bg: rgba(28, 28, 30, 0.9);
+--color-tooltip-border: rgba(255, 255, 255, 0.1);
   
   /* Spacing */
   --spacing-xs: 4px;
@@ -40,6 +53,7 @@
   --spacing-3xl: 64px;
   
   /* Typography */
+  --font-size-xxs: 9px;
   --font-size-xs: 11px;
   --font-size-sm: 13px;
   --font-size-base: 15px;
