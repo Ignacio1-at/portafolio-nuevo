@@ -12,7 +12,7 @@
             @load="handleImageLoad"
           />
           <div v-if="imageError" class="avatar-fallback">
-            {{ portfolioData.personal.name.split(' ').map(n => n[0]).join('') }}
+            {{ portfolioData.personal.name.split(' ').map((n: string) => n[0]).join('') }}
           </div>
         </div>
         <div class="avatar-ring"></div>
