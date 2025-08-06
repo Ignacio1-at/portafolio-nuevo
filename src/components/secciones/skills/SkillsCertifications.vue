@@ -33,13 +33,15 @@
               <span class="cert-year">{{ cert.year }}</span>
               <span class="cert-type">{{ cert.type }}</span>
             </div>
+            <div class="cert-description">
+              {{ cert.description }}
+            </div>
           </div>
           
-          <div class="cert-actions">
-            <button class="cert-button" @click="handleCertClick(cert)">
-              <ExternalLink class="button-icon" />
-              <span>Ver más</span>
-            </button>
+          <div class="cert-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" :style="{ width: cert.completion + '%' }"></div>
+            </div>
           </div>
           
           <div class="cert-shimmer"></div>
@@ -50,14 +52,17 @@
     <div class="certifications-footer">
       <div class="stats-row">
         <div class="stat-item">
+          <div class="stat-icon">🎓</div>
           <span class="stat-number">{{ certificationsData.length }}</span>
           <span class="stat-label">Certificaciones</span>
         </div>
         <div class="stat-item">
+          <div class="stat-icon">📚</div>
           <span class="stat-number">{{ getCurrentYear() - 2023 + 1 }}</span>
           <span class="stat-label">Años formándome</span>
         </div>
         <div class="stat-item">
+          <div class="stat-icon">⏱️</div>
           <span class="stat-number">100+</span>
           <span class="stat-label">Horas de estudio</span>
         </div>
@@ -67,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { Award, CheckCircle, ExternalLink } from 'lucide-vue-next'
+import { Award, CheckCircle } from 'lucide-vue-next'
 
 interface Props {
   portfolioData: any
@@ -79,47 +84,52 @@ const certificationsData = [
   {
     name: 'React Native',
     provider: 'Udemy',
-    year: '2023',
+    year: '2024',
     type: 'Curso Completo',
     icon: '⚛️',
     colorClass: 'primary',
-    url: '#'
+    completion: 100,
+    description: 'Desarrollo de apps móviles multiplataforma con navegación avanzada y APIs.'
   },
   {
     name: 'NestJS',
     provider: 'Udemy',
-    year: '2023',
+    year: '2024',
     type: 'Backend Expert',
     icon: '🐱',
     colorClass: 'danger',
-    url: '#'
+    completion: 100,
+    description: 'Framework robusto para APIs escalables con TypeScript y arquitectura modular.'
   },
   {
     name: 'TypeScript',
     provider: 'Udemy',
-    year: '2023',
+    year: '2024',
     type: 'Lenguaje',
     icon: '🔷',
     colorClass: 'secondary',
-    url: '#'
+    completion: 100,
+    description: 'Tipado estático para JavaScript con patrones avanzados y mejores prácticas.'
   },
   {
     name: 'Vue.js',
     provider: 'Udemy',
-    year: '2024',
+    year: '2025',
     type: 'Frontend',
     icon: '💚',
     colorClass: 'success',
-    url: '#'
+    completion: 100,
+    description: 'Framework progresivo para interfaces reactivas con Composition API y Pinia.'
   },
   {
     name: 'Angular',
     provider: 'Udemy',
-    year: '2024',
+    year: '2023',
     type: 'Framework',
     icon: '🅰️',
     colorClass: 'danger',
-    url: '#'
+    completion: 100,
+    description: 'Plataforma completa para SPAs con RxJS, guards y arquitectura enterprise.'
   },
   {
     name: 'GraphQL con NestJS',
@@ -128,16 +138,12 @@ const certificationsData = [
     type: 'API Avanzado',
     icon: '🔗',
     colorClass: 'warning',
-    url: '#'
+    completion: 100,
+    description: 'API modernas con queries eficientes, subscriptions y resolvers optimizados.'
   }
 ]
 
 const getCurrentYear = () => new Date().getFullYear()
-
-const handleCertClick = (cert: any) => {
-  console.log('Viewing certification:', cert.name)
-  // Aquí puedes abrir un modal o navegar a la certificación
-}
 </script>
 
 <style scoped>
@@ -206,7 +212,7 @@ const handleCertClick = (cert: any) => {
 
 .certifications-scroll {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-xl);
   padding: var(--spacing-md);
 }
@@ -220,7 +226,6 @@ const handleCertClick = (cert: any) => {
   position: relative;
   overflow: hidden;
   animation: certFadeIn 0.8s ease-out both;
-  cursor: pointer;
 }
 
 @keyframes certFadeIn {
@@ -235,7 +240,7 @@ const handleCertClick = (cert: any) => {
 }
 
 .cert-card:hover {
-  transform: translateY(-12px) scale(1.02);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-2xl);
   border-color: var(--color-border-primary);
 }
@@ -263,7 +268,7 @@ const handleCertClick = (cert: any) => {
   position: relative;
 }
 
-/* Colores para los iconos usando tu paleta */
+/* Colores para los iconos */
 .cert-card--primary .cert-icon {
   background: var(--color-primary);
 }
@@ -339,6 +344,7 @@ const handleCertClick = (cert: any) => {
   display: flex;
   justify-content: center;
   gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .cert-year,
@@ -359,36 +365,59 @@ const handleCertClick = (cert: any) => {
   color: var(--color-text-secondary);
 }
 
-.cert-actions {
-  display: flex;
-  justify-content: center;
-}
-
-.cert-button {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: var(--color-primary);
-  color: var(--color-text-light);
-  border: none;
-  border-radius: var(--border-radius-full);
-  font-weight: 600;
+.cert-description {
   font-size: var(--font-size-sm);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--spacing-md);
+  text-align: left;
 }
 
-.cert-button:hover {
-  background: var(--color-secondary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+/* Barra de progreso */
+.cert-progress {
+  margin-top: auto;
 }
 
-.button-icon {
-  width: 16px;
-  height: 16px;
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--border-radius-full);
+  transition: width 1s ease-out 0.5s;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-align: center;
+  display: block;
 }
 
 .cert-shimmer {
@@ -423,12 +452,19 @@ const handleCertClick = (cert: any) => {
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
   border: 1px solid var(--color-border-light);
+  position: relative;
 }
 
 .stat-item:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-border-primary);
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: var(--spacing-xs);
+  display: block;
 }
 
 .stat-number {
@@ -479,6 +515,11 @@ const handleCertClick = (cert: any) => {
   
   .cert-name {
     font-size: var(--font-size-base);
+  }
+  
+  .cert-meta {
+    flex-direction: column;
+    gap: var(--spacing-xs);
   }
 }
 </style>
