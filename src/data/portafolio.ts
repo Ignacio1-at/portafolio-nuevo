@@ -1,7 +1,7 @@
 export const portfolioData = {
   personal: {
     name: "Ignacio Torres González",
-    title: "Ingeniero en Ejecución Informática",
+    title: "Ingeniero de Ejecución en Informática",
     subtitle: "Desarrollador Full Stack & Mobile",
     email: "ignacioat.2001@gmail.com",
     phone: "+56 9 5477 4698",
@@ -14,7 +14,7 @@ export const portfolioData = {
   },
 
   about: {
-    description: "Soy Ingeniero en ejecución Informática titulado de la Pontificia Universidad Católica de Valparaíso, Chile. Con más de un año de experiencia profesional como Desarrollador Full Stack y Móvil para plataformas iOS y Android, trabajo como parte del equipo de desarrollo mientras también me desempeño como co-líder de proyectos, gestionando sistemas de control de versiones y coordinando flujos de trabajo utilizando herramientas como Redmine y OpenProject.",
+    description: "Soy Ingeniero de ejecución en Informática titulado de la Pontificia Universidad Católica de Valparaíso, Chile. Con más de un año de experiencia profesional como Desarrollador Full Stack y Móvil para plataformas iOS y Android, trabajo como parte del equipo de desarrollo mientras también me desempeño como co-líder de proyectos, gestionando sistemas de control de versiones y coordinando flujos de trabajo utilizando herramientas como Redmine y OpenProject.",
     interests: ["Desarrollo de Software", "Desarrollo Móvil", "Gestión de Proyectos"],
     university: "Pontificia Universidad Católica de Valparaíso",
     period: "2019 - 2024"
