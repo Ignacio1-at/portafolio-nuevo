@@ -1,81 +1,86 @@
 <template>
-  <div class="modal-overlay" @click="closeModal">
-    <div class="modal-content" @click.stop>
-      <div class="modal-header">
-        <div class="project-info">
-          <div class="project-icon">
-            <span class="icon-emoji">{{ project.icon }}</span>
+  <!-- Usar Teleport para renderizar fuera del componente actual -->
+  <Teleport to="body">
+    <div class="modal-overlay" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <div class="modal-header">
+          <div class="project-info">
+            <div class="project-icon">
+              <span class="icon-emoji">{{ project.icon }}</span>
+            </div>
+            <div>
+              <h3 class="project-title">{{ project.name }}</h3>
+              <p class="project-category">{{ project.category }} • {{ project.year }}</p>
+            </div>
           </div>
-          <div>
-            <h3 class="project-title">{{ project.name }}</h3>
-            <p class="project-category">{{ project.category }} • {{ project.year }}</p>
-          </div>
-        </div>
-        <button class="close-button" @click="closeModal">
-          <X class="close-icon" />
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <div class="project-description">
-          <h4>Descripción detallada</h4>
-          <p>{{ project.longDescription }}</p>
+          <button class="close-button" @click="closeModal">
+            <X class="close-icon" />
+          </button>
         </div>
 
-        <div class="project-technologies">
-          <h4>Tecnologías utilizadas</h4>
-          <div class="tech-grid">
-            <span
-              v-for="tech in project.technologies"
-              :key="tech"
-              class="tech-badge"
+        <div class="modal-body">
+          <div class="project-description">
+            <h4>Descripción detallada</h4>
+            <p>{{ project.longDescription }}</p>
+          </div>
+
+          <div class="project-technologies">
+            <h4>Tecnologías utilizadas</h4>
+            <div class="tech-grid">
+              <span
+                v-for="tech in project.technologies"
+                :key="tech"
+                class="tech-badge"
+              >
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+
+          <div class="project-features">
+            <h4>Características completas</h4>
+            <ul class="features-grid">
+              <li
+                v-for="feature in project.features"
+                :key="feature"
+                class="feature-item"
+              >
+                <Check class="feature-icon" />
+                <span>{{ feature }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="project-actions">
+            <a
+              v-if="project.github"
+              :href="project.github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="modal-button modal-button--github"
             >
-              {{ tech }}
-            </span>
-          </div>
-        </div>
-
-        <div class="project-features">
-          <h4>Características completas</h4>
-          <ul class="features-grid">
-            <li
-              v-for="feature in project.features"
-              :key="feature"
-              class="feature-item"
+              <Github class="button-icon" />
+              <span>Ver en GitHub</span>
+            </a>
+            <a
+              v-if="project.demo"
+              :href="project.demo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="modal-button modal-button--demo"
             >
-              <Check class="feature-icon" />
-              <span>{{ feature }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="project-actions">
-          <a
-            :href="project.github"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="modal-button modal-button--github"
-          >
-            <Github class="button-icon" />
-            <span>Ver en GitHub</span>
-          </a>
-          <a
-            v-if="project.demo"
-            :href="project.demo"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="modal-button modal-button--demo"
-          >
-            <ExternalLink class="button-icon" />
-            <span>Ver Demo</span>
-          </a>
+              <ExternalLink class="button-icon" />
+              <span>Ver Demo</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, Teleport } from 'vue'
 import { X, Check, Github, ExternalLink } from 'lucide-vue-next'
 
 interface Props {
@@ -88,9 +93,44 @@ const emit = defineEmits<{
   close: []
 }>()
 
+// 🔒 BLOQUEAR SCROLL DEL BODY
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+  document.body.style.paddingRight = getScrollbarWidth() + 'px'
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  document.body.style.paddingRight = ''
+})
+
+const getScrollbarWidth = () => {
+  const scrollDiv = document.createElement('div')
+  scrollDiv.style.cssText = 'width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px;'
+  document.body.appendChild(scrollDiv)
+  const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+  document.body.removeChild(scrollDiv)
+  return scrollbarWidth
+}
+
 const closeModal = () => {
+  document.body.style.overflow = ''
+  document.body.style.paddingRight = ''
   emit('close')
 }
+
+onMounted(() => {
+  const handleEscape = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeModal()
+    }
+  }
+  document.addEventListener('keydown', handleEscape)
+  
+  onUnmounted(() => {
+    document.removeEventListener('keydown', handleEscape)
+  })
+})
 </script>
 
 <style scoped>
@@ -102,7 +142,7 @@ const closeModal = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: var(--z-modal);
   padding: var(--spacing-lg);
   animation: modalFadeIn 0.3s ease-out;
 }
@@ -118,10 +158,19 @@ const closeModal = () => {
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
+  /* 🚀 SIN SCROLL VISIBLE - Solo interno cuando sea necesario */
   overflow-y: auto;
   box-shadow: var(--shadow-2xl);
   border: 1px solid var(--color-border-light);
   animation: modalSlideIn 0.3s ease-out;
+  /* 🎯 OCULTAR SCROLLBAR COMPLETAMENTE */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
+
+/* 🎯 OCULTAR SCROLLBAR EN WEBKIT (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes modalSlideIn {
@@ -315,6 +364,19 @@ const closeModal = () => {
   
   .features-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header,
+  .modal-body {
+    padding: var(--spacing-md);
+  }
+  
+  .project-info {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
   }
 }
 </style>

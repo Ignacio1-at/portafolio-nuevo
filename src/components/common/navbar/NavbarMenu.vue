@@ -28,11 +28,11 @@ interface Props {
 }
 
 defineProps<Props>()
-
 defineEmits<{
   navClick: [sectionId: string, event: Event]
 }>()
 </script>
+
 
 <style scoped>
 .navbar__menu {
@@ -115,7 +115,7 @@ defineEmits<{
     padding: 80px 24px 24px;
     gap: var(--spacing-sm);
     transition: right 0.4s var(--transition-base);
-    z-index: var(--z-modal);
+    z-index: 999; /* Mayor que el overlay */
     box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 0;
   }

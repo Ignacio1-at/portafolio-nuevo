@@ -19,14 +19,11 @@
         <div class="avatar-ring avatar-ring--secondary"></div>
       </div>
     </div>
-    
-    <HeroTechStack />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import HeroTechStack from './HeroTechStack.vue'
 
 interface Props {
   portfolioData: any

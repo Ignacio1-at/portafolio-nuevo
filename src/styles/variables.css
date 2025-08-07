@@ -131,3 +131,14 @@ body {
     min-height: auto;
   }
 }
+
+/* 🔒 Clase para bloquear scroll globalmente (alternativa) */
+.no-scroll {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+/* Variables para scrollbar */
+:root {
+  --scrollbar-width: 0px;
+}

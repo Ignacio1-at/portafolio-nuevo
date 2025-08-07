@@ -16,7 +16,7 @@
           :style="{ animationDelay: `${index * 0.15}s` }"
         >
           <div class="progress-ring-container">
-            <svg class="progress-ring" width="80" height="80">
+            <svg class="progress-ring" viewBox="0 0 80 80">
               <circle
                 class="progress-ring-bg"
                 cx="40"
@@ -197,8 +197,9 @@ const getExperienceLevel = (percentage: number) => {
 
 .levels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--spacing-xl);
+  justify-items: center;
 }
 
 .level-item {
@@ -206,6 +207,8 @@ const getExperienceLevel = (percentage: number) => {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
+  max-width: 250px;
   animation: levelFadeIn 0.8s ease-out both;
 }
 
@@ -220,10 +223,14 @@ const getExperienceLevel = (percentage: number) => {
   }
 }
 
+/* ✨ CÍRCULOS RESPONSIVOS - CLAVE DEL ARREGLO ✨ */
 .progress-ring-container {
   position: relative;
   margin-bottom: var(--spacing-lg);
   transition: all var(--transition-base);
+  width: 100%;
+  max-width: 120px;
+  aspect-ratio: 1;
 }
 
 .level-item:hover .progress-ring-container {
@@ -231,6 +238,8 @@ const getExperienceLevel = (percentage: number) => {
 }
 
 .progress-ring {
+  width: 100%;
+  height: 100%;
   transform: rotate(-90deg);
   filter: drop-shadow(var(--shadow-sm));
 }
@@ -285,12 +294,12 @@ const getExperienceLevel = (percentage: number) => {
 }
 
 .skill-icon {
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 20px);
   margin-bottom: 2px;
 }
 
 .skill-percentage {
-  font-size: var(--font-size-xxs);
+  font-size: clamp(10px, 2.5vw, 12px);
   font-weight: 700;
   color: var(--color-text-primary);
 }
@@ -336,6 +345,7 @@ const getExperienceLevel = (percentage: number) => {
   box-shadow: 0 0 4px var(--color-border-primary);
 }
 
+/* 📱 RESPONSIVE BREAKPOINTS MEJORADOS */
 @media (max-width: 768px) {
   .levels-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -351,25 +361,46 @@ const getExperienceLevel = (percentage: number) => {
     text-align: center;
     gap: var(--spacing-sm);
   }
+  
+  .progress-ring-container {
+    max-width: 100px;
+  }
 }
 
 @media (max-width: 480px) {
   .levels-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
   }
   
-  .progress-ring {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .progress-ring-bg,
-  .progress-ring-fill {
-    r: 28;
+  .progress-ring-container {
+    max-width: 80px;
   }
   
   .skill-icon {
-    font-size: 18px;
+    font-size: 14px;
+  }
+  
+  .skill-percentage {
+    font-size: 9px;
+  }
+  
+  .skill-name {
+    font-size: var(--font-size-sm);
+  }
+  
+  .skill-category {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 320px) {
+  .levels-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .progress-ring-container {
+    max-width: 90px;
   }
 }
 

@@ -17,7 +17,6 @@ interface Props {
 }
 
 defineProps<Props>()
-
 defineEmits<{
   toggle: []
 }>()

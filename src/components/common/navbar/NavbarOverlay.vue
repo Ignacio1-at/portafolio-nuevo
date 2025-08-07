@@ -12,7 +12,6 @@ interface Props {
 }
 
 defineProps<Props>()
-
 defineEmits<{
   close: []
 }>()
@@ -29,12 +28,14 @@ defineEmits<{
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-base);
-  z-index: var(--z-dropdown);
+  z-index: 998; /* Un z-index menor que el menú pero mayor que el contenido */
   backdrop-filter: blur(10px);
+  pointer-events: none; /* Importante: bloquea clics cuando está cerrado */
 }
 
 .navbar__overlay--open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto; /* Permite clics cuando está abierto */
 }
 </style>
